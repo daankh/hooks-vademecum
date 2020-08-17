@@ -1,12 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  const reset = () => {
+    setCount(0);
+  };
+
+  return (
+    <div>
+      <p>The current count is {count}</p>
+      <button onClick={decrement}>-1</button>
+      <button onClick={reset}>Reset</button>
+      <button onClick={increment}>+1</button>
+    </div>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <div>new one</div>
+    <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
