@@ -1,40 +1,55 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
-// const App = (props) => {
-//   const [count, setCount] = useState(props.count);
-//   const [text, setText] = useState("");
+const App = (props) => {
+  const [count, setCount] = useState(props.count);
+  const [text, setText] = useState("");
 
-//   const increment = () => {
-//     setCount(count + 1);
-//   };
+  useEffect(() => {
+    console.log(text);
+  }, [text]);
 
-//   const decrement = () => {
-//     setCount(count - 1);
-//   };
+  const increment = () => {
+    setCount(count + 1);
+  };
 
-//   const reset = () => {
-//     setCount(props.count);
-//   };
+  const decrement = () => {
+    setCount(count - 1);
+  };
 
-//   return (
-//     <div>
-//       <p>
-//         The current {text || "count"} is {count}
-//       </p>
-//       <button onClick={decrement}>-1</button>
-//       <button onClick={reset}>Reset</button>
-//       <button onClick={increment}>+1</button>
-//       <input value={text} onChange={(e) => setText(e.target.value)} />
-//     </div>
-//   );
-// };
+  const reset = () => {
+    setCount(props.count);
+  };
+
+  return (
+    <div>
+      <p>
+        The current {text || "count"} is {count}
+      </p>
+      <button onClick={decrement}>-1</button>
+      <button onClick={reset}>Reset</button>
+      <button onClick={increment}>+1</button>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+    </div>
+  );
+};
 
 const NoteApp = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+  useEffect(() => {
+    const notesData = localStorage.getItem("notes");
+    if (notesData) {
+      setNotes(JSON.parse(notesData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const addNote = (e) => {
     e.preventDefault();
@@ -86,10 +101,8 @@ const NoteApp = () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    {/*
-    <App count={0} />
-    */}
-    <NoteApp />
+    {/*<App count={0} />*/}
+    {<NoteApp />}
   </React.StrictMode>,
   document.getElementById("root")
 );
