@@ -35,6 +35,26 @@ const App = (props) => {
   );
 };
 
+const Note = ({ note, removeNote }) => {
+  useEffect(() => {
+    console.log("Start effect");
+
+    return () => {
+      console.log("cleaning effect");
+    };
+  }, []);
+
+  return (
+    <div>
+      <h3>
+        <span>{note.title}</span>
+        <button onClick={removeNote}>remove</button>
+      </h3>
+      {note.body && <p>{note.body}</p>}
+    </div>
+  );
+};
+
 const NoteApp = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
@@ -70,13 +90,7 @@ const NoteApp = () => {
       <h1>Notes</h1>
       <div>
         {notes.map((note, index) => (
-          <Fragment key={index}>
-            <h3>
-              <span>{note.title}</span>
-              <button onClick={() => removeNote(index)}>remove</button>
-            </h3>
-            {note.body && <p>{note.body}</p>}
-          </Fragment>
+          <Note key={index} note={note} removeNote={() => removeNote(index)} />
         ))}
       </div>
       <p>Add note</p>
