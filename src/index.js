@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
-const App = () => {
-  const [count, setCount] = useState(0);
+const App = (props) => {
+  const [count, setCount] = useState(props.count);
+  const [text, setText] = useState("");
 
   const increment = () => {
     setCount(count + 1);
@@ -14,22 +15,25 @@ const App = () => {
   };
 
   const reset = () => {
-    setCount(0);
+    setCount(props.count);
   };
 
   return (
     <div>
-      <p>The current count is {count}</p>
+      <p>
+        The current {text || "count"} is {count}
+      </p>
       <button onClick={decrement}>-1</button>
       <button onClick={reset}>Reset</button>
       <button onClick={increment}>+1</button>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
     </div>
   );
 };
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App count={0} />
   </React.StrictMode>,
   document.getElementById("root")
 );
