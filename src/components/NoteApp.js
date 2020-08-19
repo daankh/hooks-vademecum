@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import notesReducer from "../reducers/notes";
-import Note from "./Note";
+import NoteList from "./NoteList";
 
 const NoteApp = () => {
   // const [notes, setNotes] = useState([]);
@@ -48,15 +48,7 @@ const NoteApp = () => {
   return (
     <div>
       <h1>Notes</h1>
-      <div>
-        {notes.map((note) => (
-          <Note
-            key={note.title}
-            note={note}
-            removeNote={() => removeNote(note.title)}
-          />
-        ))}
-      </div>
+      <NoteList notes={notes} removeNote={removeNote} />
       <p>Add note</p>
       <form onSubmit={addNote}>
         <input
