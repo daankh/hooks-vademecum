@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import NoteContext from "../context/notes-context";
 
-const Note = ({ note, removeNote }) => {
+const Note = ({ note }) => {
+  const { dispatch } = useContext(NoteContext);
+
   useEffect(() => {
     console.log("Start effect");
 
@@ -9,11 +12,20 @@ const Note = ({ note, removeNote }) => {
     };
   }, []);
 
+  const removeNote = (title) => {
+    // const newNotes = notes.filter((note) => note.title !== title);
+    dispatch({
+      type: "REMOVE_NOTE",
+      title,
+    });
+    // setNotes(newNotes);
+  };
+
   return (
     <div>
       <h3>
         <span>{note.title}</span>
-        <button onClick={removeNote}>remove</button>
+        <button onClick={() => removeNote(note.title)}>remove</button>
       </h3>
       {note.body && <p>{note.body}</p>}
     </div>
