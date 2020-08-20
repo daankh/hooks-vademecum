@@ -1,16 +1,19 @@
 import React, { useEffect, useContext } from "react";
 import NoteContext from "../context/notes-context";
+import useMousePosition from "../hooks/useMousePosition";
 
 const Note = ({ note }) => {
   const { dispatch } = useContext(NoteContext);
 
-  useEffect(() => {
-    console.log("Start effect");
+  const position = useMousePosition();
 
-    return () => {
-      console.log("cleaning effect");
-    };
-  }, []);
+  // useEffect(() => {
+  //   console.log("Start effect");
+
+  //   return () => {
+  //     console.log("cleaning effect");
+  //   };
+  // }, []);
 
   const removeNote = (title) => {
     // const newNotes = notes.filter((note) => note.title !== title);
@@ -24,6 +27,9 @@ const Note = ({ note }) => {
   return (
     <div>
       <h3>
+        <p>
+          Mouse position: x={position.x}, y={position.y}
+        </p>
         <span>{note.title}</span>
         <button onClick={() => removeNote(note.title)}>remove</button>
       </h3>
